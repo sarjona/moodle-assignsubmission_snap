@@ -1,0 +1,49 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template assignsubmission_snap/snapiframe
+
+    This template will render an iframe for Snap! content.
+
+    Variables required for this template:
+    * snapurl - The base Snap! URL.
+    * snapmode - The mode to display this Snap! project: with the full editor, embeded...
+    * userid - The creator of this Snap! content.
+    * attempt - The attempt number.
+    * width - Iframe width.
+    * height - Iframe height.
+    * xmlproject - The XML project to load.
+
+    Example context (json):
+    {
+        "snapurl": "http://myserver/mod/assign/submission/snap/snaplib/snap.html",
+        "snapmode": "embed",
+        "userid": "3",
+        "attempt": "1",
+        "width": "100%",
+        "height": "400px"
+        "xmlproject": "<project name="projectName" app="Snap! 5.4, http://snap.berkeley.edu" version="1"><notes>...</notes></project>"
+    }
+
+}}
+<div class="snap-iframe-wrapper">
+    <iframe src="{{snapurl}}" id="snap-{{snapmode}}-{{userid}}-{{attempt}}" style="height:{{height}}; min-width: {{width}}">
+    </iframe>
+</div>
+{{#js}}
+    require(['assignsubmission_snap/snap'], function(Snap) {Snap.init('{{xmlproject}}', '{{snapmode}}', '{{userid}}', '{{attempt}}');});
+{{/js}}
